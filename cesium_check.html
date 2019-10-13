@@ -1,0 +1,113 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Multidimensional spatiotemporal monitor tracker</title>
+        <meta name="description" content="A 3-d interactive explorer for EPA air monitoring sites in the US">
+        <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+        <!--<link rel="stylesheet" href="main.css">-->
+        <!--<script src='./css/Cesium/Cesium.js'></script>-->
+        <script src="https://cesiumjs.org/releases/1.62/Build/Cesium/Cesium.js"></script>
+        <style>
+            @import url(./css/Cesium/Widgets/widgets.css);
+            html, body, #cesiumContainer{
+                width:100%; height: 100%; margin: 0; padding: 0; overflow; hidden;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div id='cesiumContainer'>
+        </div>
+        <script>
+            Cesium.Ion.defaultAccessToken ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3ZTMwNjkzZC00MDJmLTRiZDctOGEzYS01NmRiMDUxMDZlZTkiLCJpZCI6MTYzODIsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1NzA1NTgxNDl9.nLCQz0HFigEaD194FtJ3HnV0zyOrdTetZQ9aO4OIeTU';
+            
+            
+            var bing = new Cesium.BingMapsImageryProvider({
+                url: 'https://dev.virtualearth.net',
+                key: 'AsOoAkcO-ooZDSvgMNrisIN3kwxqi_bBTG4ECMzK4m4pD0hQpSG98pWWVk-kzfdK',
+                mapStyle: Cesium.BingMapsStyle.AERIAL
+            });
+    
+            var viewer = new Cesium.Viewer('cesiumContainer',{
+                terrainProvider: Cesium.createWorldTerrain(),
+                baseLayerPicker: false,
+                imageryProvider: bing
+            });
+            viewer.scene.globe.enableLighting = true;
+            viewer.extend(Cesium.viewerDragDropMixin);
+            
+            
+            var dataSource = new Cesium.GeoJsonDataSource();
+            var points = dataSource.load('./data/aqs2.geojson');
+            points.then(function(dataSource){
+                viewer.dataSources.add(dataSource);
+                viewer.zoomTo(dataSource);
+            
+            var entities1 = dataSource.entities.values;
+            var colorHash = {};
+            
+            for (var i = 0; i < entities1.length; i++) {
+                var entity = entities1[i];
+                var name = entity.Address;
+                var color = colorHash[name];
+                if (!color) {
+                    color = Cesium.Color.BLACK;
+                    colorHash[name] = color;
+                }
+                entity.point.pixelSize = 20;
+                entity.point.material = color;
+                entity.point.outline = false;
+            }
+            
+            var entities = dataSource.entities.values;
+                
+                for (var i = 0; i < entities.length; i++){
+                    var entity = entities[i];
+                    entity.billboard = undefined;
+                    entity.point = new Cesium.PointGraphics({
+                        color: Cesium.Color.fromRandom()
+                    });
+                }
+                
+            }).otherwise(function(error){
+                window.alert(error);
+            });
+            
+            //function addNewPoint(
+            //    var point = new Cesium.Entity({
+                    //id: data.Address,
+                    //name: data.Address,
+            //        position: Cesium.Cartesian3.fromDegrees(data.Lon, data.Lat),
+            //        point: {
+            //            pixelSize: 5,
+            //            color: Cesium.Color(255, 0, 0),
+            //            outlineColor: Cesium.Color(200, 25, 25),
+            //            outlineWidth: 2
+            //        }
+            
+            //     });
+                
+            //    viewer.entities.add(point);
+            //);
+            
+            
+            //Cesium.loadJson('./data/aqs2.geojson').then(addNewPoint(data));
+            
+            
+            //viewer.dataSources.add(Cesium.GeoJsonDataSource.load('./data/aqs2.geojson', {
+            //    stroke: Cesium.Color(41, 15, 255),
+            //    fill: Cesium.Color(41, 15, 214),
+            //    strokeWidth: 2.5,
+            //    markerSymbol: "o"
+            //}));
+            
+            
+            
+        </script>
+
+    </body>
+    
+    
+</html>
