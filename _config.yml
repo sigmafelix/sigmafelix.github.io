@@ -1,3 +1,14 @@
 theme: jekyll-theme-minimal
 title: Insang Song -- Spatial Scientist for Environment and Health
 description: Here is the webpage of Insang Song.
+lsi: false
+safe: true
+source: /
+incremental: false
+highlighter: rouge
+gist:
+  noscript: false
+kramdown:
+  math_engine: mathjax
+  syntax_highlighter: rouge
+
