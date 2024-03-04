@@ -17,10 +17,11 @@ title: Insang Song -- Spatial Scientists for Human Health and Environment
 email: geoissong@gmail.com 
 description: >- # this means to ignore newlines until "baseurl:"
   Insang Song, Ph.D. Spatial Health Scientist on Space and Time
-baseurl: "" # the subpath of your site, e.g. /blog
-url: "" # the base hostname & protocol for your site, e.g. http://example.com
-twitter_username: jekyllrb
-github_username:  jekyll
+# baseurl: "" # the subpath of your site, e.g. /blog
+# url: "" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl                  : "" # the subpath of your site, e.g. "/blog"
+repository               : "academicpages/academicpages.github.io"
+github_username:  sigmafelix
 
 # Build settings
 markdown: kramdown
