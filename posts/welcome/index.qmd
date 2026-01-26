@@ -1,0 +1,9 @@
+---
+title: "Welcome To My Blog"
+author: "Insang Song"
+date: "2026-01-26"
+categories: [news]
+---
+
+This is the first post in Insang Song's Quarto blog. Welcome!
+

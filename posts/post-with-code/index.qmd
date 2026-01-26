@@ -1,0 +1,62 @@
+---
+title: "Pycensuskr example"
+author: "Insang Song"
+date: "2026-01-26"
+categories: [news, code, analysis]
+---
+
+This post demonstrates how to use the [`pycensuskr`](https://github.com/sigmafelix/pycensuskr) package to analyze Korean census data.
+
+## Installation
+
+You can install `pycensuskr` via pip:
+
+```bash
+pip install pycensuskr
+```
+
+## Basic Usage
+
+Here is a basic example of how to load census data and district boundaries.
+
+```{python}
+#| eval: true
+from pycensuskr import __version__
+from pycensuskr import CensusKR
+from matplotlib import pyplot as plt
+import geopandas as gpd
+
+# Print version
+print(f"pycensuskr version: {__version__}")
+
+# Create a CensusData instance
+census = CensusKR()
+
+# load specific year data (e.g., 2020)
+# This returns a dictionary containing various census datasets
+data_2020 = census.load_data(2020)
+print(data_2020.keys())
+
+# load district boundaries for a specific year
+districts_2020 = census.load_districts(2020)
+print(districts_2020.head())
+
+# Example: Process and visualize tax data
+# First, basic processing of district codes to match data aggregation level
+districts_2020["adm2_re"] = districts_2020["adm2_code"].astype(str).str.slice(0,4)
+# aggregate geometries by adm2_re
+districts_2020 = districts_2020.dissolve(by="adm2_re", as_index=False)
+districts_2020["adm2_code"] = districts_2020["adm2_re"] + "0"
+districts_2020["adm2_code"] = districts_2020["adm2_code"].astype(int)
+
+# Retrieve tax data
+df_tax_2020 = census.anycensus(year = 2020, type = "tax", aggregator = "sum")
+
+# Merge spatial data with tax data
+districts_tax_2020 = districts_2020.merge(df_tax_2020, on="adm2_code")
+
+# Plot labor income
+districts_tax_2020.plot("income_labor_mil", legend=True, figsize=(10, 10))
+plt.title("Labor Income by District (2020)")
+plt.show()
+```
