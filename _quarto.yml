@@ -1,10 +1,11 @@
 project:
   type: website
+  output-dir: _site
 
 website:
-  description: "A blog built with Quarto"
-  site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
-  title: "Chronicles of keys and synapses"
+  description: "Insang Song's Blog"
+  site-url: https://sigmafelix.github.io
+  title: "Spin rules"
   navbar:
     right:
       - about.qmd
@@ -16,7 +17,6 @@ format:
   html:
     theme:
       - cosmo
-      - brand
     css: styles.css
 
 

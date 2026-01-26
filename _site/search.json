@@ -1,0 +1,44 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Chronicles of keys and synapses",
+    "section": "",
+    "text": "Pycensuskr example\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 26, 2026\n\n\nInsang Song\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 26, 2026\n\n\nInsang Song\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/welcome/index.html",
+    "href": "posts/welcome/index.html",
+    "title": "Welcome To My Blog",
+    "section": "",
+    "text": "This is the first post in Insang Song’s Quarto blog. Welcome!"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html",
+    "href": "posts/post-with-code/index.html",
+    "title": "Pycensuskr example",
+    "section": "",
+    "text": "This post demonstrates how to use the pycensuskr package to analyze Korean census data."
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#installation",
+    "href": "posts/post-with-code/index.html#installation",
+    "title": "Pycensuskr example",
+    "section": "Installation",
+    "text": "Installation\nYou can install pycensuskr via pip:\npip install pycensuskr"
+  },
+  {
+    "objectID": "posts/post-with-code/index.html#basic-usage",
+    "href": "posts/post-with-code/index.html#basic-usage",
+    "title": "Pycensuskr example",
+    "section": "Basic Usage",
+    "text": "Basic Usage\nHere is a basic example of how to load census data and district boundaries.\n\nfrom pycensuskr import __version__\nfrom pycensuskr import CensusKR\nfrom matplotlib import pyplot as plt\nimport geopandas as gpd\n\n# Print version\nprint(f\"pycensuskr version: {__version__}\")\n\n# Create a CensusData instance\ncensus = CensusKR()\n\n# load specific year data (e.g., 2020)\n# This returns a dictionary containing various census datasets\ndata_2020 = census.load_data(2020)\nprint(data_2020.keys())\n\n# load district boundaries for a specific year\ndistricts_2020 = census.load_districts(2020)\nprint(districts_2020.head())\n\n# Example: Process and visualize tax data\n# First, basic processing of district codes to match data aggregation level\ndistricts_2020[\"adm2_re\"] = districts_2020[\"adm2_code\"].astype(str).str.slice(0,4)\n# aggregate geometries by adm2_re\ndistricts_2020 = districts_2020.dissolve(by=\"adm2_re\", as_index=False)\ndistricts_2020[\"adm2_code\"] = districts_2020[\"adm2_re\"] + \"0\"\ndistricts_2020[\"adm2_code\"] = districts_2020[\"adm2_code\"].astype(int)\n\n# Retrieve tax data\ndf_tax_2020 = census.anycensus(year = 2020, type = \"tax\", aggregator = \"sum\")\n\n# Merge spatial data with tax data\ndistricts_tax_2020 = districts_2020.merge(df_tax_2020, on=\"adm2_code\")\n\n# Plot labor income\ndistricts_tax_2020.plot(\"income_labor_mil\", legend=True, figsize=(10, 10))\nplt.title(\"Labor Income by District (2020)\")\nplt.show()\n\npycensuskr version: 0.2.5\nIndex(['year', 'adm1', 'adm1_code', 'adm2', 'adm2_code', 'type', 'class1',\n       'class2', 'unit', 'value'],\n      dtype='object')\n   year  adm2_code                                           geometry\n0  2020      21140  POLYGON ((1147104.09 1689056.052, 1147080.539 ...\n1  2020      21020  POLYGON ((1137762.765 1683520.509, 1137613.699...\n2  2020      21010  POLYGON ((1139121.024 1678920.638, 1139128.662...\n3  2020      21040  POLYGON ((1144618.022 1676795.027, 1144559.535...\n4  2020      21070  POLYGON ((1142639.495 1682655.233, 1142678.184..."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Here is Insang Song’s blog, where all work-related and spatial thoughts are shared."
+  }
+]
