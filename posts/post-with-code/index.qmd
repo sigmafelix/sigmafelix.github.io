@@ -19,15 +19,10 @@ pip install pycensuskr
 
 Here is a basic example of how to load census data and district boundaries.
 
-```{python}
-#| eval: true
-from pycensuskr import __version__
+```python
 from pycensuskr import CensusKR
 from matplotlib import pyplot as plt
 import geopandas as gpd
-
-# Print version
-print(f"pycensuskr version: {__version__}")
 
 # Create a CensusData instance
 census = CensusKR()

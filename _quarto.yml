@@ -1,18 +1,27 @@
 project:
   type: website
-  output-dir: docs
+  output-dir: _site
+  resources:
+    - 404.html
+    - cesium_check.html
 
 website:
-  description: "Insang Song's Blog"
+  description: "Insang Song's personal webpage and weblog"
   site-url: https://sigmafelix.github.io
-  title: "Spin rules"
+  title: "Insang Song"
   navbar:
+    left:
+      - href: index.qmd
+        text: Blog
     right:
       - about.qmd
       - icon: github
-        href: https://github.com/
+        href: https://github.com/sigmafelix
       - icon: twitter
-        href: https://twitter.com
+        href: https://twitter.com/sigmafelix
+  page-footer:
+    left: "Copyright 2026 Insang Song"
+    right: "Built with Quarto"
 format:
   html:
     theme:
