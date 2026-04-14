@@ -2,6 +2,7 @@ project:
   type: website
   output-dir: _site
   resources:
+    - .nojekyll
     - 404.html
     - cesium_check.html
 

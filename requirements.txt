@@ -2,3 +2,6 @@ jupyter
 pycensuskr
 matplotlib
 geopandas
+fastparquet
+openpyxl
+pandas
