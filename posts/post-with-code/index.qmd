@@ -7,6 +7,8 @@ categories: [news, code, analysis]
 
 This post demonstrates how to use the [`pycensuskr`](https://github.com/sigmafelix/pycensuskr) package to analyze Korean census data.
 
+![](gat.jpg)
+
 ## Installation
 
 You can install `pycensuskr` via pip:
@@ -19,7 +21,7 @@ pip install pycensuskr
 
 Here is a basic example of how to load census data and district boundaries.
 
-```python
+```{python}
 from pycensuskr import CensusKR
 from matplotlib import pyplot as plt
 import geopandas as gpd
@@ -35,7 +37,10 @@ print(data_2020.keys())
 # load district boundaries for a specific year
 districts_2020 = census.load_districts(2020)
 print(districts_2020.head())
+```
 
+
+```{python}
 # Example: Process and visualize tax data
 # First, basic processing of district codes to match data aggregation level
 districts_2020["adm2_re"] = districts_2020["adm2_code"].astype(str).str.slice(0,4)

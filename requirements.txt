@@ -1,0 +1,4 @@
+jupyter
+pycensuskr
+matplotlib
+geopandas
