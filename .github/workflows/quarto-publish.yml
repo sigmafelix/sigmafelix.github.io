@@ -37,10 +37,6 @@ jobs:
             pip install jupyter
           fi
 
-      - name: Install R dependencies
-        run: |
-          R --quiet --slave -e "install.packages(c('terra', 'IRkernel'), repos='http://cran.r-project.org')"
-
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
